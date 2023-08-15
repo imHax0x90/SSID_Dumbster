@@ -1,0 +1,60 @@
+Python 3.10.12 (main, Jun 11 2023, 05:26:28) [GCC 11.4.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> connect_command = f'sudo nmcli device wifi connect "{essid}" password "{password}"'
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'essid' is not defined
+>>> connect_command = f'sudo nmcli device wifi connect "+ssid+" password "+password+"'
+>>> ssid = 'PlsDontTalk'
+>>> password = 'azeRTy!*000?/*'
+>>> connect_command =  f'sudo nmcli device wifi connect "+ssid+" password "+password+"'
+>>> print(connect_command)
+sudo nmcli device wifi connect "+ssid+" password "+password+"
+>>> connect_command =  f'sudo nmcli device wifi connect "PlsDontTalk" password "azeRTy!*000?/*"'
+>>> print(connect_command)
+sudo nmcli device wifi connect "PlsDontTalk" password "azeRTy!*000?/*"
+>>> process = create_subprocess_shell(connect_command)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'create_subprocess_shell' is not defined
+>>> import subprocess
+>>> process = create_subprocess_shell(connect_command)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'create_subprocess_shell' is not defined
+>>> fconnect_command
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'fconnect_command' is not defined. Did you mean: 'connect_command'?
+>>> connect_comand
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'connect_comand' is not defined. Did you mean: 'connect_command'?
+>>> connect_command
+'sudo nmcli device wifi connect "PlsDontTalk" password "azeRTy!*000?/*"'
+>>> shell(connect_command)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'shell' is not defined. Did you mean: 'help'?
+>>> subprocess.run(connect_command)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.10/subprocess.py", line 503, in run
+    with Popen(*popenargs, **kwargs) as process:
+  File "/usr/lib/python3.10/subprocess.py", line 971, in __init__
+    self._execute_child(args, executable, preexec_fn, close_fds,
+  File "/usr/lib/python3.10/subprocess.py", line 1863, in _execute_child
+    raise child_exception_type(errno_num, err_msg, err_filename)
+FileNotFoundError: [Errno 2] No such file or directory: 'sudo nmcli device wifi connect "PlsDontTalk" password "azeRTy!*000?/*"'
+>>> subprocess.run(connect_command, shell=True, check=True)
+Erreur : aucun réseau avec le SSID « PlsDontTalk » trouvé.
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.10/subprocess.py", line 526, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command 'sudo nmcli device wifi connect "PlsDontTalk" password "azeRTy!*000?/*"' returned non-zero exit status 10.
+>>> subprocess.run(connect_command, shell=True, check=True)
+Périphérique « wlp0s20f3 » activé avec « 9f6d0be2-ee3a-4c56-9b79-2869ecf197bb ».
+CompletedProcess(args='sudo nmcli device wifi connect "PlsDontTalk" password "azeRTy!*000?/*"', returncode=0)
+>>> 
+KeyboardInterrupt
