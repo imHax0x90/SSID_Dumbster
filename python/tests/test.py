@@ -8,30 +8,25 @@ async def connection(essid, password):
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE
     )
-    stdout, stderr = await process.communicate()
-
-    if stdout:
-        output = stdout.decode('utf-8')
-        print("Output:")
-        print(output)
-        if "Périphérique « wlp0s20f3 » activé" in output or "Device 'wlp0s20f3' successfully activated" in output:
+    try:
+        await asyncio.wait_for(process.wait(), timeout=0.7335)  # Set a timeout 0.7335 = minTimeout(0.61125) * 1.2 (margin to make sure that when it happens to be less fast, it still works properly)
+        if process.returncode == 0:
             print(f"Successfully connected to network '{essid}' with password '{password}'.")
             return True
         else:
-            print(f"Activation message not found for password '{password}'.")
-    else:
-        print("Error:")
-        print(stderr.decode('utf-8'))
-    
-    return False
+            print(f"Connection attempt with password '{password}' failed.")
+            return False
+    except asyncio.TimeoutError:
+        print(f"Connection attempt with password '{password}' timed out.")
+        return False
 
 async def main():
     ssid = "PlsDontTalk"
     passwords = [
-        "azeRTy!*000?/*",
         "AZerty000",
         "ABcdef000",
         "MeTooISuck",
+        "azeRTy!*000?/*",
         "IAintAPassword@!?.:"
     ]
 
